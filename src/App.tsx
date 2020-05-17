@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, ReactChildren, ReactNode } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Color from 'color-interfaces';
 
@@ -92,12 +92,32 @@ const ControlRow = styled.div`
 
 const ExampleColor = styled.div`
   display: flex;
-  width: 120px;
+  width: 150px;
   flex-direction: column;
-  padding: 50px;
+  padding: 36px;
+  position: relative;
 `;
 
-const DisplayColor = ({ color }: { color: Color }) => {
+const RepoLink = styled.a`
+  display: block;
+  background-image: url('http://chriskr.github.io/cv/github.svg');
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  background-size: 20px;
+  padding-left: 32px;
+  height: 24px;
+  line-height: 20px;
+  margin-top: 20px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  position: absolute;
+  bottom: -36px;
+  left: 0;
+`;
+
+const DisplayColor = ({ color, children }: { color: Color; children: any }) => {
   const isDark = color.getLuminance() < 0.35;
   const style = {
     backgroundColor: color.rgb.toCss(),
@@ -109,6 +129,7 @@ const DisplayColor = ({ color }: { color: Color }) => {
       <div>{color.hex.toCss()}</div>
       <div>{color.rgb.toCss()}</div>
       <div>{color.hsl.toCss()}</div>
+      {children}
     </ExampleColor>
   );
 };
@@ -386,7 +407,11 @@ const App = () => {
             </ControlRow>
           </ControlsColorSpace>
         </ControlsContainer>
-        <DisplayColor color={color} />
+        <DisplayColor color={color}>
+          <RepoLink href="https://github.com/chriskr/color-tool">
+            color-tool
+          </RepoLink>
+        </DisplayColor>
       </MainContent>
     </>
   );
