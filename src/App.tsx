@@ -214,7 +214,7 @@ const getOnInput = (
     }
   });
 
-  setColor(new Color(color.rgb.get()));
+  setColor(color.copy());
 };
 
 const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

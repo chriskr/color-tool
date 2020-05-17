@@ -3040,10 +3040,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-interfaces@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/color-interfaces/-/color-interfaces-0.0.4.tgz#2f843685b04eb4fd6e51540456ddbc56caf1a87b"
-  integrity sha512-k2DcKZ0PvUWtdbKqAS7TbuP5WeqReknQsuZoLhaXf3yOPH9n8xf7hXbt0ZZUdzFCkEy2T6FdAtAt+ydhSMi2/Q==
+color-interfaces@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/color-interfaces/-/color-interfaces-0.0.6.tgz#a411c20e9282b351e6152fe63f528293b2a4bc7c"
+  integrity sha512-T5PhBxW8+9S5qudNc6qUfOD6tlesgrApxv1dmuSBAEQ63LuMhM3k0HAW2OOsWHCa4yw6m/OqlgGaJTcXkoRo7g==
 
 color-name@1.1.3:
   version "1.1.3"
