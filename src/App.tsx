@@ -8,7 +8,8 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     background: hsl(0, 0%, 95%);
-    font: menu;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
   }
 
   html {
@@ -28,7 +29,8 @@ const GlobalStyle = createGlobalStyle`
   h1,
   h2,
   h3 {
-    font-weight: normal;
+    font-weight: 300;
+    font-size: 1em;
   }
 
   h1 {
@@ -39,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 20px 0 120px 0;
     font-size: 50px;
-    font-weight: 300;
+    font-weight: 100;
   }
 `;
 
@@ -57,8 +59,22 @@ const ControlsContainer = styled.form`
 
 const ControlsColorSpace = styled.div`
   padding: 8px 16px;
+  input {
+    font: inherit;
+  }
+  input:active,
+  input:focus {
+    outline: none;
+  }
   input[type='range'] {
     width: 240px;
+  }
+  input[type='number'],
+  input[type='text'] {
+    border: none;
+    padding: 0 2px;
+    margin: 0 0 0 16px;
+    background: transparent;
   }
   input[type='number'] {
     margin-left: 12px;
@@ -85,7 +101,7 @@ const ControlRow = styled.div`
   align-items: center;
 
   label {
-    min-width: 80px;
+    min-width: 96px;
   }
 `;
 
@@ -114,6 +130,7 @@ const RepoLink = styled.a`
   position: absolute;
   bottom: -36px;
   left: 0;
+  color: black;
 `;
 
 const DisplayColor: FunctionComponent<{
@@ -239,7 +256,12 @@ const App = () => {
             <ControlRow>
               <label>hex</label>
               <span>#</span>
-              <input type="text" id="hex" defaultValue={color.hex.get()} />
+              <input
+                type="text"
+                id="hex"
+                defaultValue={color.hex.get()}
+                spellCheck={false}
+              />
             </ControlRow>
           </ControlsColorSpace>
 
