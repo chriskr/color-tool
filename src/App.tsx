@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, ReactChildren, ReactNode } from 'react';
+import React, { FormEvent, useState, FunctionComponent } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Color from 'color-interfaces';
 
@@ -7,10 +7,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-
     background: hsl(0, 0%, 95%);
     font: menu;
-
   }
 
   html {
@@ -23,17 +21,18 @@ const GlobalStyle = createGlobalStyle`
   body {
     display: flex;
     flex-direction: column;
-  align-items: center;
-  padding-bottom: 70px;
-
+    align-items: center;
+    padding-bottom: 70px;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-weight: normal;
   }
 
   h1 {
-    background-image: url("http://chriskr.github.io/home/wiking.svg");
+    background-image: url('http://chriskr.github.io/home/wiking.svg');
     background-repeat: no-repeat;
     background-position: 0 100px;
     background-size: 70px;
@@ -117,7 +116,9 @@ const RepoLink = styled.a`
   left: 0;
 `;
 
-const DisplayColor = ({ color, children }: { color: Color; children: any }) => {
+const DisplayColor: FunctionComponent<{
+  color: Color;
+}> = ({ color, children }) => {
   const isDark = color.getLuminance() < 0.35;
   const style = {
     backgroundColor: color.rgb.toCss(),
