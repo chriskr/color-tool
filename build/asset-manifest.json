@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/color-tool/build/static/js/main.bb7f6f2f.chunk.js",
-    "main.js.map": "/color-tool/build/static/js/main.bb7f6f2f.chunk.js.map",
+    "main.js": "/color-tool/build/static/js/main.00260986.chunk.js",
+    "main.js.map": "/color-tool/build/static/js/main.00260986.chunk.js.map",
     "runtime-main.js": "/color-tool/build/static/js/runtime-main.81be106e.js",
     "runtime-main.js.map": "/color-tool/build/static/js/runtime-main.81be106e.js.map",
     "static/js/2.9706d197.chunk.js": "/color-tool/build/static/js/2.9706d197.chunk.js",
     "static/js/2.9706d197.chunk.js.map": "/color-tool/build/static/js/2.9706d197.chunk.js.map",
     "index.html": "/color-tool/build/index.html",
-    "precache-manifest.375a378a91b0dded7345c3e7208c3972.js": "/color-tool/build/precache-manifest.375a378a91b0dded7345c3e7208c3972.js",
+    "precache-manifest.1c42ce2d52eb8baa5f6868a35c5c4cb6.js": "/color-tool/build/precache-manifest.1c42ce2d52eb8baa5f6868a35c5c4cb6.js",
     "service-worker.js": "/color-tool/build/service-worker.js",
     "static/js/2.9706d197.chunk.js.LICENSE.txt": "/color-tool/build/static/js/2.9706d197.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.81be106e.js",
     "static/js/2.9706d197.chunk.js",
-    "static/js/main.bb7f6f2f.chunk.js"
+    "static/js/main.00260986.chunk.js"
   ]
 }

@@ -126,7 +126,7 @@ const DisplayColor: FunctionComponent<{
   };
   return (
     <ExampleColor style={style}>
-      <h2 style={{ padding: '0', margin: '0' }}>color sample</h2>
+      <h2>color sample</h2>
       <div>{color.hex.toCss()}</div>
       <div>{color.rgb.toCss()}</div>
       <div>{color.hsl.toCss()}</div>
