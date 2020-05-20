@@ -68,6 +68,7 @@ const ControlsColorSpace = styled.div`
   }
   input[type='range'] {
     width: 240px;
+    -webkit-appearance: none;
   }
   input[type='number'],
   input[type='text'] {
@@ -239,6 +240,14 @@ const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
   event.stopPropagation();
 };
 
+const getStyleDeclarations = (color: Color) => {
+  return `
+    input[type=range] {
+      background: red;
+    }
+  `;
+};
+
 const App = () => {
   const [color, setColor] = useState(new Color([127, 127, 127]));
 
@@ -246,6 +255,7 @@ const App = () => {
     <>
       <GlobalStyle />
       <h1>color converter</h1>
+      <style>{getStyleDeclarations(color)}</style>
       <MainContent>
         <ControlsContainer
           onInput={getOnInput(color, setColor)}
