@@ -1,6 +1,6 @@
-import React, { FormEvent, useState, FunctionComponent } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
-import Color from 'color-interfaces';
+import React, { FormEvent, useState, FunctionComponent } from "react";
+import styled, { createGlobalStyle } from "styled-components";
+import Color from "color-interfaces";
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -66,22 +66,24 @@ const ControlsColorSpace = styled.div`
   input:focus {
     outline: none;
   }
-  input[type='range'] {
-    width: 240px;
+  input[type="range"] {
+    width: 600px;
+    height: 24px;
     -webkit-appearance: none;
+    margin: 6px 0;
   }
-  input[type='number'],
-  input[type='text'] {
+  input[type="number"],
+  input[type="text"] {
     border: none;
     padding: 0 2px;
     margin: 0 0 0 16px;
     background: transparent;
   }
-  input[type='number'] {
+  input[type="number"] {
     margin-left: 12px;
     width: 4em;
   }
-  input[type='text'] {
+  input[type="text"] {
     margin-left: 1px;
     width: 6em;
   }
@@ -116,7 +118,7 @@ const ExampleColor = styled.div`
 
 const RepoLink = styled.a`
   display: block;
-  background-image: url('http://chriskr.github.io/cv/github.svg');
+  background-image: url("http://chriskr.github.io/cv/github.svg");
   background-repeat: no-repeat;
   background-position: 0 50%;
   background-size: 20px;
@@ -140,7 +142,7 @@ const DisplayColor: FunctionComponent<{
   const isDark = color.getLuminance() < 0.35;
   const style = {
     backgroundColor: color.rgb.toCss(),
-    color: isDark ? 'white' : 'black',
+    color: isDark ? "white" : "black",
   };
   return (
     <ExampleColor style={style}>
@@ -240,10 +242,135 @@ const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
   event.stopPropagation();
 };
 
+const c = new Color();
+
+type CA = [number, number, number];
+
+type GetLineraGradientArgs = {
+  direction?: string;
+  colorStops: CA[];
+  colorInterface: typeof c.rgb | typeof c.hsl | typeof c.hsv;
+};
+
+type GetLineraGradient = (options: GetLineraGradientArgs) => string;
+
+const getLineraGradient: GetLineraGradient = ({
+  direction = "90deg",
+  colorStops,
+  colorInterface,
+}) => {
+  const step = 1 / (colorStops.length - 1);
+  return `linear-gradient(${[
+    direction,
+    ...colorStops.map((colorStop, index) => {
+      colorInterface.set(colorStop);
+      return `${colorInterface.toCss()} ${Math.round(index * step * 100)}%`;
+    }),
+  ].join(", ")})`;
+};
+
 const getStyleDeclarations = (color: Color) => {
+  const c = new Color();
   return `
-    input[type=range] {
-      background: red;
+    #red {
+      background: ${getLineraGradient({
+        colorStops: [
+          [0, color.rgb.g, color.rgb.b],
+          [255, color.rgb.g, color.rgb.b],
+        ],
+        colorInterface: c.rgb,
+      })};
+    }
+
+    #green {
+      background: ${getLineraGradient({
+        colorStops: [
+          [color.rgb.r, 0, color.rgb.b],
+          [color.rgb.r, 255, color.rgb.b],
+        ],
+        colorInterface: c.rgb,
+      })};
+    }
+
+    #blue {
+      background: ${getLineraGradient({
+        colorStops: [
+          [color.rgb.r, color.rgb.g, 0],
+          [color.rgb.r, color.rgb.g, 255],
+        ],
+        colorInterface: c.rgb,
+      })};
+    }
+
+    #hue {
+      background: ${getLineraGradient({
+        colorStops: [
+          [0, color.hsv.s, color.hsv.v],
+          [60, color.hsv.s, color.hsv.v],
+          [120, color.hsv.s, color.hsv.v],
+          [180, color.hsv.s, color.hsv.v],
+          [240, color.hsv.s, color.hsv.v],
+          [300, color.hsv.s, color.hsv.v],
+          [360, color.hsv.s, color.hsv.v],
+        ],
+        colorInterface: c.hsv,
+      })};
+    }
+
+    #saturation {
+      background: ${getLineraGradient({
+        colorStops: [
+          [color.hsv.h, 0, color.hsv.v],
+          [color.hsv.h, 1, color.hsv.v],
+        ],
+        colorInterface: c.hsv,
+      })};
+    }
+
+    #value {
+      background: ${getLineraGradient({
+        colorStops: [
+          [color.hsv.h, color.hsv.s, 0],
+          [color.hsv.h, color.hsv.s, 1],
+        ],
+        colorInterface: c.hsv,
+      })};
+    }
+
+    #hueL {
+      background: ${getLineraGradient({
+        colorStops: [
+          [0, color.hsl.s, color.hsl.l],
+          [60, color.hsl.s, color.hsl.l],
+          [120, color.hsl.s, color.hsl.l],
+          [180, color.hsl.s, color.hsl.l],
+          [240, color.hsl.s, color.hsl.l],
+          [300, color.hsl.s, color.hsl.l],
+          [360, color.hsl.s, color.hsl.l],
+        ],
+        colorInterface: c.hsl,
+      })};
+    }
+
+    #saturationL {
+      background: ${getLineraGradient({
+        colorStops: [
+          [color.hsl.h, 0, color.hsl.l],
+          [color.hsl.h, 1, color.hsl.l],
+        ],
+        colorInterface: c.hsl,
+      })};
+    }
+
+    #lightness {
+      background: ${getLineraGradient({
+        colorStops: [
+          [color.hsl.h, color.hsl.s, 0],
+          [color.hsl.h, color.hsl.s, 0.5],
+          [color.hsl.h, color.hsl.s, 1],
+        ],
+        colorInterface: c.hsl,
+      })};
     }
   `;
 };
