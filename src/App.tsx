@@ -1,15 +1,22 @@
-import React, { FormEvent, useState, FunctionComponent } from "react";
-import styled, { createGlobalStyle } from "styled-components";
-import Color from "color-interfaces";
+import React, { FormEvent, useState, FunctionComponent } from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
+import Color from 'color-interfaces';
+
+import wiking from './wiking.svg';
+
+import dot from './dot.svg';
+
+console.log(wiking);
 
 const GlobalStyle = createGlobalStyle`
   html,
   body {
     padding: 0;
     margin: 0;
-    background: hsl(0, 0%, 95%);
+    background: hsl(0, 0%, 25%);
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+    color: hsl(0, 0%, 80%);
   }
 
   html {
@@ -23,7 +30,6 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 70px;
   }
 
   h1,
@@ -34,15 +40,24 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    background-image: url('http://chriskr.github.io/home/wiking.svg');
-    background-repeat: no-repeat;
-    background-position: 0 100px;
-    background-size: 70px;
     margin: 0;
-    padding: 20px 0 120px 0;
-    font-size: 50px;
+    padding: 0;
+    font-size: 90px;
     font-weight: 100;
+    color: hsl(0, 0%, 35%);
   }
+
+`;
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 72px 70px 262px;
+  background-image: url(${wiking});
+  background-repeat: no-repeat;
+  background-position: 35px 50%;
+  background-size: 70px;
 `;
 
 const MainContent = styled.div`
@@ -58,32 +73,51 @@ const ControlsContainer = styled.form`
 `;
 
 const ControlsColorSpace = styled.div`
-  padding: 8px 16px;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: row;
   input {
     font: inherit;
+    color: inherit;
   }
   input:active,
   input:focus {
     outline: none;
   }
-  input[type="range"] {
-    width: 600px;
+  input[type='range'] {
+    width: 720px;
     height: 24px;
     -webkit-appearance: none;
     margin: 6px 0;
+    background-color: rgba(255, 255, 255, 0.05);
   }
-  input[type="number"],
-  input[type="text"] {
+  input[type='range']::-webkit-slider-thumb {
+    margin: 0;
+    -webkit-appearance: none;
+    height: 38px;
+    width: 12px;
+    background: transparent;
+    background-image: url(${dot});
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    opacity: 0.3;
+  }
+
+  input[type='range']:hover::-webkit-slider-thumb {
+    opacity: 1;
+  }
+  input[type='number'],
+  input[type='text'] {
     border: none;
     padding: 0 2px;
     margin: 0 0 0 16px;
     background: transparent;
   }
-  input[type="number"] {
+  input[type='number'] {
     margin-left: 12px;
-    width: 4em;
+    width: 60px;
   }
-  input[type="text"] {
+  input[type='text'] {
     margin-left: 1px;
     width: 6em;
   }
@@ -91,34 +125,49 @@ const ControlsColorSpace = styled.div`
     resize: none;
     border: none;
   }
+  /*
+  opacity: 0;
+  transition: opacity 0.5s;
+  &:hover {
+    opacity: 1;
+  }
+  */
 `;
 
 const ColorSpaceTitle = styled.h3`
-  margin: -8px -16px 8px -16px;
-  padding: 8px 16px;
-  background-color: hsl(0, 0%, 85%);
+  margin: 0;
+  padding: 0;
+  width: 140px;
+  font-size: 90px;
+  font-weight: 100;
+  display: flex;
+  align-items: center;
+  color: hsl(0, 0%, 35%);
 `;
+
+const ControlsBlock = styled.div``;
 
 const ControlRow = styled.div`
   display: flex;
   align-items: center;
 
   label {
-    min-width: 96px;
+    width: 100px;
+    text-align: right;
+    padding-right: 12px;
   }
 `;
 
 const ExampleColor = styled.div`
   display: flex;
-  width: 150px;
+  width: 140px;
+  padding: 18px 36px;
   flex-direction: column;
-  padding: 36px;
-  position: relative;
 `;
 
 const RepoLink = styled.a`
   display: block;
-  background-image: url("http://chriskr.github.io/cv/github.svg");
+  background-image: url('http://chriskr.github.io/cv/github.svg');
   background-repeat: no-repeat;
   background-position: 0 50%;
   background-size: 20px;
@@ -130,10 +179,12 @@ const RepoLink = styled.a`
   &:hover {
     text-decoration: underline;
   }
+  /*
   position: absolute;
   bottom: -36px;
   left: 0;
-  color: black;
+  */
+  color: inherit;
 `;
 
 const DisplayColor: FunctionComponent<{
@@ -142,11 +193,10 @@ const DisplayColor: FunctionComponent<{
   const isDark = color.getLuminance() < 0.35;
   const style = {
     backgroundColor: color.rgb.toCss(),
-    color: isDark ? "white" : "black",
+    color: isDark ? 'white' : 'black',
   };
   return (
     <ExampleColor style={style}>
-      <h2>color sample</h2>
       <div>{color.hex.toCss()}</div>
       <div>{color.rgb.toCss()}</div>
       <div>{color.hsl.toCss()}</div>
@@ -255,7 +305,7 @@ type GetLineraGradientArgs = {
 type GetLineraGradient = (options: GetLineraGradientArgs) => string;
 
 const getLineraGradient: GetLineraGradient = ({
-  direction = "90deg",
+  direction = '90deg',
   colorStops,
   colorInterface,
 }) => {
@@ -266,13 +316,13 @@ const getLineraGradient: GetLineraGradient = ({
       colorInterface.set(colorStop);
       return `${colorInterface.toCss()} ${Math.round(index * step * 100)}%`;
     }),
-  ].join(", ")})`;
+  ].join(', ')})`;
 };
 
 const getStyleDeclarations = (color: Color) => {
   const c = new Color();
   return `
-    #red {
+    #red:hover {
       background: ${getLineraGradient({
         colorStops: [
           [0, color.rgb.g, color.rgb.b],
@@ -282,7 +332,7 @@ const getStyleDeclarations = (color: Color) => {
       })};
     }
 
-    #green {
+    #green:hover {
       background: ${getLineraGradient({
         colorStops: [
           [color.rgb.r, 0, color.rgb.b],
@@ -292,7 +342,7 @@ const getStyleDeclarations = (color: Color) => {
       })};
     }
 
-    #blue {
+    #blue:hover {
       background: ${getLineraGradient({
         colorStops: [
           [color.rgb.r, color.rgb.g, 0],
@@ -302,7 +352,7 @@ const getStyleDeclarations = (color: Color) => {
       })};
     }
 
-    #hue {
+    #hue:hover {
       background: ${getLineraGradient({
         colorStops: [
           [0, color.hsv.s, color.hsv.v],
@@ -317,7 +367,7 @@ const getStyleDeclarations = (color: Color) => {
       })};
     }
 
-    #saturation {
+    #saturation:hover {
       background: ${getLineraGradient({
         colorStops: [
           [color.hsv.h, 0, color.hsv.v],
@@ -327,7 +377,7 @@ const getStyleDeclarations = (color: Color) => {
       })};
     }
 
-    #value {
+    #value:hover {
       background: ${getLineraGradient({
         colorStops: [
           [color.hsv.h, color.hsv.s, 0],
@@ -337,7 +387,7 @@ const getStyleDeclarations = (color: Color) => {
       })};
     }
 
-    #hueL {
+    #hueL:hover {
       background: ${getLineraGradient({
         colorStops: [
           [0, color.hsl.s, color.hsl.l],
@@ -352,7 +402,7 @@ const getStyleDeclarations = (color: Color) => {
       })};
     }
 
-    #saturationL {
+    #saturationL:hover {
       background: ${getLineraGradient({
         colorStops: [
           [color.hsl.h, 0, color.hsl.l],
@@ -362,7 +412,7 @@ const getStyleDeclarations = (color: Color) => {
       })};
     }
 
-    #lightness {
+    #lightness:hover {
       background: ${getLineraGradient({
         colorStops: [
           [color.hsl.h, color.hsl.s, 0],
@@ -381,7 +431,11 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <h1>color converter</h1>
+      <Header>
+        <h1>color tool</h1>
+        <DisplayColor color={color}></DisplayColor>
+      </Header>
+
       <style>{getStyleDeclarations(color)}</style>
       <MainContent>
         <ControlsContainer
@@ -389,190 +443,196 @@ const App = () => {
           onSubmit={handleSubmit}
         >
           <ControlsColorSpace>
-            <ColorSpaceTitle>hex</ColorSpaceTitle>
-            <ControlRow>
-              <label>hex</label>
-              <span>#</span>
-              <input
-                type="text"
-                id="hex"
-                defaultValue={color.hex.get()}
-                spellCheck={false}
-              />
-            </ControlRow>
+            <ColorSpaceTitle></ColorSpaceTitle>
+            <ControlsBlock>
+              <ControlRow>
+                <label>hex</label>
+                <span>#</span>
+                <input
+                  type="text"
+                  id="hex"
+                  defaultValue={color.hex.get()}
+                  spellCheck={false}
+                />
+              </ControlRow>
+            </ControlsBlock>
           </ControlsColorSpace>
 
           <ControlsColorSpace>
             <ColorSpaceTitle>rgb</ColorSpaceTitle>
-            <ControlRow>
-              <label>red</label>
-              <input
-                type="range"
-                id="red"
-                min="0"
-                max="255"
-                defaultValue={color.rgb.r}
-              />
-              <input
-                type="number"
-                id="redValue"
-                min="0"
-                max="255"
-                defaultValue={color.rgb.r}
-              />
-            </ControlRow>
-            <ControlRow>
-              <label>green</label>
-              <input
-                type="range"
-                id="green"
-                min="0"
-                max="255"
-                defaultValue={color.rgb.g}
-              />
-              <input
-                type="number"
-                id="greenValue"
-                min="0"
-                max="255"
-                defaultValue={color.rgb.b}
-              />
-            </ControlRow>
-            <ControlRow>
-              <label>blue</label>
-              <input
-                type="range"
-                id="blue"
-                min="0"
-                max="255"
-                defaultValue={color.rgb.b}
-              />
-              <input
-                type="number"
-                id="blueValue"
-                min="0"
-                max="255"
-                defaultValue={color.rgb.b}
-              />
-            </ControlRow>
+            <ControlsBlock>
+              <ControlRow>
+                <label>red</label>
+                <input
+                  type="range"
+                  id="red"
+                  min="0"
+                  max="255"
+                  defaultValue={color.rgb.r}
+                />
+                <input
+                  type="number"
+                  id="redValue"
+                  min="0"
+                  max="255"
+                  defaultValue={color.rgb.r}
+                />
+              </ControlRow>
+              <ControlRow>
+                <label>green</label>
+                <input
+                  type="range"
+                  id="green"
+                  min="0"
+                  max="255"
+                  defaultValue={color.rgb.g}
+                />
+                <input
+                  type="number"
+                  id="greenValue"
+                  min="0"
+                  max="255"
+                  defaultValue={color.rgb.b}
+                />
+              </ControlRow>
+              <ControlRow>
+                <label>blue</label>
+                <input
+                  type="range"
+                  id="blue"
+                  min="0"
+                  max="255"
+                  defaultValue={color.rgb.b}
+                />
+                <input
+                  type="number"
+                  id="blueValue"
+                  min="0"
+                  max="255"
+                  defaultValue={color.rgb.b}
+                />
+              </ControlRow>
+            </ControlsBlock>
           </ControlsColorSpace>
 
           <ControlsColorSpace>
             <ColorSpaceTitle>hsv</ColorSpaceTitle>
-            <ControlRow>
-              <label>hue</label>
-              <input
-                type="range"
-                id="hue"
-                min="0"
-                max="360"
-                defaultValue={getters.hue(color)}
-              />
-              <input
-                type="number"
-                id="hueValue"
-                min="0"
-                max="360"
-                defaultValue={getters.hue(color)}
-              />
-            </ControlRow>
-            <ControlRow>
-              <label>saturation</label>
-              <input
-                type="range"
-                id="saturation"
-                min="0"
-                max="100"
-                defaultValue={getters.saturation(color)}
-              />
-              <input
-                type="number"
-                id="saturationValue"
-                min="0"
-                max="100"
-                defaultValue={getters.saturation(color)}
-              />
-            </ControlRow>
-            <ControlRow>
-              <label>value</label>
-              <input
-                type="range"
-                id="value"
-                min="0"
-                max="100"
-                defaultValue={getters.value(color)}
-              />
-              <input
-                type="number"
-                id="valueValue"
-                min="0"
-                max="100"
-                defaultValue={getters.value(color)}
-              />
-            </ControlRow>
+            <ControlsBlock>
+              <ControlRow>
+                <label>hue</label>
+                <input
+                  type="range"
+                  id="hue"
+                  min="0"
+                  max="360"
+                  defaultValue={getters.hue(color)}
+                />
+                <input
+                  type="number"
+                  id="hueValue"
+                  min="0"
+                  max="360"
+                  defaultValue={getters.hue(color)}
+                />
+              </ControlRow>
+              <ControlRow>
+                <label>saturation</label>
+                <input
+                  type="range"
+                  id="saturation"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.saturation(color)}
+                />
+                <input
+                  type="number"
+                  id="saturationValue"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.saturation(color)}
+                />
+              </ControlRow>
+              <ControlRow>
+                <label>value</label>
+                <input
+                  type="range"
+                  id="value"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.value(color)}
+                />
+                <input
+                  type="number"
+                  id="valueValue"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.value(color)}
+                />
+              </ControlRow>
+            </ControlsBlock>
           </ControlsColorSpace>
 
           <ControlsColorSpace>
             <ColorSpaceTitle>hsl</ColorSpaceTitle>
-            <ControlRow>
-              <label>hue</label>
-              <input
-                type="range"
-                id="hueL"
-                min="0"
-                max="360"
-                defaultValue={getters.hueL(color)}
-              />
-              <input
-                type="number"
-                id="hueLValue"
-                min="0"
-                max="360"
-                defaultValue={getters.hueL(color)}
-              />
-            </ControlRow>
-            <ControlRow>
-              <label>saturation</label>
-              <input
-                type="range"
-                id="saturationL"
-                min="0"
-                max="100"
-                defaultValue={getters.saturationL(color)}
-              />
-              <input
-                type="number"
-                id="saturationLValue"
-                min="0"
-                max="100"
-                defaultValue={getters.saturationL(color)}
-              />
-            </ControlRow>
-            <ControlRow>
-              <label>lightness</label>
-              <input
-                type="range"
-                id="lightness"
-                min="0"
-                max="100"
-                defaultValue={getters.lightness(color)}
-              />
-              <input
-                type="number"
-                id="lightnessValue"
-                min="0"
-                max="100"
-                defaultValue={getters.lightness(color)}
-              />
-            </ControlRow>
+            <ControlsBlock>
+              <ControlRow>
+                <label>hue</label>
+                <input
+                  type="range"
+                  id="hueL"
+                  min="0"
+                  max="360"
+                  defaultValue={getters.hueL(color)}
+                />
+                <input
+                  type="number"
+                  id="hueLValue"
+                  min="0"
+                  max="360"
+                  defaultValue={getters.hueL(color)}
+                />
+              </ControlRow>
+              <ControlRow>
+                <label>saturation</label>
+                <input
+                  type="range"
+                  id="saturationL"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.saturationL(color)}
+                />
+                <input
+                  type="number"
+                  id="saturationLValue"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.saturationL(color)}
+                />
+              </ControlRow>
+              <ControlRow>
+                <label>lightness</label>
+                <input
+                  type="range"
+                  id="lightness"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.lightness(color)}
+                />
+                <input
+                  type="number"
+                  id="lightnessValue"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.lightness(color)}
+                />
+              </ControlRow>
+            </ControlsBlock>
           </ControlsColorSpace>
         </ControlsContainer>
-        <DisplayColor color={color}>
-          <RepoLink href="https://github.com/chriskr/color-tool">
-            color-tool
-          </RepoLink>
-        </DisplayColor>
       </MainContent>
+      <RepoLink href="https://github.com/chriskr/color-tool">
+        color-tool
+      </RepoLink>
     </>
   );
 };
