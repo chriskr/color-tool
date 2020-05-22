@@ -71,13 +71,14 @@ export const getOnInput = (
   }
 
   const setter = setters[target.id];
-  const value = Number.parseInt(target.value);
+  const value =
+    target.id === 'hex' ? target.value : Number.parseInt(target.value);
 
-  if (!(setter && Number.isFinite(value))) {
+  try {
+    setter(color, value);
+  } catch (e) {
     return;
   }
-
-  setter(color, value);
 
   Array.from(currentTarget.elements).forEach((input) => {
     if (

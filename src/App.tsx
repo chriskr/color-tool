@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import Color from 'color-interfaces';
-import {
-  getters,
-  getOnInput,
-  handleSubmit,
-  getStyleDeclarations,
-} from './utils';
+import { getters, getOnInput, handleSubmit } from './utils';
 import {
   GlobalStyle,
   Header,
