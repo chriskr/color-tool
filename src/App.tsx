@@ -1,10 +1,11 @@
-import React, { FormEvent, useState, FunctionComponent } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
-import Color from 'color-interfaces';
+import React, { FormEvent, useState, FunctionComponent } from "react";
+import styled, { createGlobalStyle } from "styled-components";
+import Color from "color-interfaces";
 
-import wiking from './wiking.svg';
+import wiking from "./wiking.svg";
 
-import dot from './dot.svg';
+import dot from "./dot.svg";
+import github from "./github.svg";
 
 console.log(wiking);
 
@@ -13,10 +14,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-    background: hsl(0, 0%, 25%);
+
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    color: hsl(0, 0%, 80%);
+    color: hsl(0, 0%, 75%);
   }
 
   html {
@@ -24,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: linear-gradient(0deg, hsl(0, 0%, 10%), hsl(0, 0%, 25%));
   }
 
   body {
@@ -53,16 +55,17 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 72px 70px 262px;
+  padding: 0 80px 0 250px;
   background-image: url(${wiking});
   background-repeat: no-repeat;
   background-position: 35px 50%;
-  background-size: 70px;
+  background-size: 85px;
 `;
 
 const MainContent = styled.div`
   display: flex;
   justify-content: center;
+  margin: 70px 0;
 `;
 
 const ControlsContainer = styled.form`
@@ -84,40 +87,40 @@ const ControlsColorSpace = styled.div`
   input:focus {
     outline: none;
   }
-  input[type='range'] {
+  input[type="range"] {
     width: 720px;
-    height: 24px;
+    height: 20px;
     -webkit-appearance: none;
     margin: 6px 0;
     background-color: rgba(255, 255, 255, 0.05);
   }
-  input[type='range']::-webkit-slider-thumb {
+  input[type="range"]::-webkit-slider-thumb {
     margin: 0;
     -webkit-appearance: none;
-    height: 38px;
+    height: 36px;
     width: 12px;
     background: transparent;
     background-image: url(${dot});
     background-repeat: no-repeat;
-    background-position: 50% 0;
+    background-position: 50% 100%;
     opacity: 0.3;
   }
 
-  input[type='range']:hover::-webkit-slider-thumb {
+  input[type="range"]:hover::-webkit-slider-thumb {
     opacity: 1;
   }
-  input[type='number'],
-  input[type='text'] {
+  input[type="number"],
+  input[type="text"] {
     border: none;
     padding: 0 2px;
     margin: 0 0 0 16px;
     background: transparent;
   }
-  input[type='number'] {
+  input[type="number"] {
     margin-left: 12px;
-    width: 60px;
+    width: 68px;
   }
-  input[type='text'] {
+  input[type="text"] {
     margin-left: 1px;
     width: 6em;
   }
@@ -167,14 +170,13 @@ const ExampleColor = styled.div`
 
 const RepoLink = styled.a`
   display: block;
-  background-image: url('http://chriskr.github.io/cv/github.svg');
+  background-image: url(${github});
   background-repeat: no-repeat;
   background-position: 0 50%;
   background-size: 20px;
   padding-left: 32px;
   height: 24px;
-  line-height: 20px;
-  margin-top: 20px;
+  line-height: 24px;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
@@ -185,6 +187,8 @@ const RepoLink = styled.a`
   left: 0;
   */
   color: inherit;
+  float: right;
+  width: 68px;
 `;
 
 const DisplayColor: FunctionComponent<{
@@ -193,7 +197,7 @@ const DisplayColor: FunctionComponent<{
   const isDark = color.getLuminance() < 0.35;
   const style = {
     backgroundColor: color.rgb.toCss(),
-    color: isDark ? 'white' : 'black',
+    color: isDark ? "white" : "black",
   };
   return (
     <ExampleColor style={style}>
@@ -305,7 +309,7 @@ type GetLineraGradientArgs = {
 type GetLineraGradient = (options: GetLineraGradientArgs) => string;
 
 const getLineraGradient: GetLineraGradient = ({
-  direction = '90deg',
+  direction = "90deg",
   colorStops,
   colorInterface,
 }) => {
@@ -316,7 +320,7 @@ const getLineraGradient: GetLineraGradient = ({
       colorInterface.set(colorStop);
       return `${colorInterface.toCss()} ${Math.round(index * step * 100)}%`;
     }),
-  ].join(', ')})`;
+  ].join(", ")})`;
 };
 
 const getStyleDeclarations = (color: Color) => {
