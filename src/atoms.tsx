@@ -2,9 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Color, { ColorType } from 'color-interfaces';
 import { getStyleDeclarations } from './utils';
-
 import wiking from './wiking.svg';
-
 import dot from './dot.svg';
 import github from './github.svg';
 import bg2 from './bg2.svg';
@@ -190,7 +188,7 @@ export const ControlRow = styled.div`
 
 export const ExampleColor = styled.div`
   display: flex;
-  width: 150px;
+  width: 170px;
   padding: 18px 36px;
   flex-direction: column;
   position: relative;
@@ -246,7 +244,9 @@ export const DisplayColor: FunctionComponent<{
       <div>{color.hex.toCss()}</div>
       <div>{color.rgb.toCss()}</div>
       <div>{color.hsl.toCss()}</div>
+      <div>{color.hexa.toCss()}</div>
       <div>{color.rgba.toCss()}</div>
+      <div>{color.hsla.toCss()}</div>
     </ExampleColor>
   );
 };

@@ -1,23 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bca51f4c5eecf37896d6f657b349efee",
+    "revision": "89a3c0e1e9ded62a9d83b9ccb4e89bd9",
     "url": "/color-tool/build/index.html"
   },
   {
-    "revision": "6c42704ddc1d45b6690e",
-    "url": "/color-tool/build/static/js/2.f0e8e7d9.chunk.js"
+    "revision": "df5f6360070750e91f5b",
+    "url": "/color-tool/build/static/js/2.c652fc5f.chunk.js"
   },
   {
     "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/color-tool/build/static/js/2.f0e8e7d9.chunk.js.LICENSE.txt"
+    "url": "/color-tool/build/static/js/2.c652fc5f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6bb51104638557ace97f",
-    "url": "/color-tool/build/static/js/main.b3630896.chunk.js"
+    "revision": "645900e7b72045cb2b75",
+    "url": "/color-tool/build/static/js/main.7834114c.chunk.js"
   },
   {
     "revision": "48a97f4705bb0e7866cc",
     "url": "/color-tool/build/static/js/runtime-main.81be106e.js"
+  },
+  {
+    "revision": "808fc92341776b4d60acdad32a290801",
+    "url": "/color-tool/build/static/media/bg2.808fc923.svg"
   },
   {
     "revision": "863d1f3e293d31367a309b5bb8ac448d",

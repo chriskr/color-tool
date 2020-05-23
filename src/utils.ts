@@ -248,7 +248,3 @@ export const getStyleDeclarations = (color: Color) => {
     }
   `;
 };
-
-/*
-
-*/

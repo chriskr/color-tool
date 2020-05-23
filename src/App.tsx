@@ -16,7 +16,7 @@ import {
 } from './atoms';
 
 const App = () => {
-  const [color, setColor] = useState(new Color([127, 127, 127]));
+  const [color, setColor] = useState(new Color([246, 232, 17]));
 
   return (
     <>
