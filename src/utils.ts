@@ -6,7 +6,10 @@ import Color, {
   RGB,
   HSL,
   HSV,
+  RGBAInterface,
+  RGBA,
 } from 'color-interfaces';
+import bg2 from './bg2.svg';
 
 export const setters: Object &
   Record<string, (color: Color, v: any) => void> = {
@@ -32,6 +35,9 @@ export const setters: Object &
   lightnessValue: (color: Color, v: number) => (color.hsl.l = v / 100),
 
   hex: (color: Color, v: string) => color.hex.set(v),
+
+  alpha: (color: Color, v: number) => (color.alpha = v / 100),
+  alphaValue: (color: Color, v: number) => (color.alpha = v / 100),
 };
 
 export const getters: Object &
@@ -58,6 +64,9 @@ export const getters: Object &
   lightnessValue: (color: Color) => Math.round(color.hsl.l * 100),
 
   hex: (color: Color) => color.hex.get(),
+
+  alpha: (color: Color) => Math.round(color.alpha * 100),
+  alphaValue: (color: Color) => Math.round(color.alpha * 100),
 };
 
 export const getOnInput = (
@@ -100,8 +109,8 @@ export const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 
 type GetLineraGradientArgs = {
   direction?: string;
-  colorStops: (RGB | HSL | HSV)[];
-  colorInterface: RGBInterface | HSVInterface | HSLInterface;
+  colorStops: (RGB | HSL | HSV | RGBA)[];
+  colorInterface: RGBInterface | HSVInterface | HSLInterface | RGBAInterface;
 };
 
 type GetLineraGradient = (options: GetLineraGradientArgs) => string;
@@ -114,10 +123,13 @@ export const getLineraGradient: GetLineraGradient = ({
   const step = 1 / (colorStops.length - 1);
   return `linear-gradient(${[
     direction,
-    ...colorStops.map((colorStop, index) => {
-      colorInterface.set(colorStop);
-      return `${colorInterface.toCss()} ${Math.round(index * step * 100)}%`;
-    }),
+    ...colorStops.map(
+      (colorStop, index) =>
+        // @ts-ignore
+        `${colorInterface.set(colorStop).toCss()} ${Math.round(
+          index * step * 100
+        )}%`
+    ),
   ].join(', ')})`;
 };
 
@@ -125,7 +137,7 @@ export const getStyleDeclarations = (color: Color) => {
   const c = new Color();
   return `
     #red:hover {
-      background: ${getLineraGradient({
+      background-image: ${getLineraGradient({
         colorStops: [
           [0, color.rgb.g, color.rgb.b],
           [255, color.rgb.g, color.rgb.b],
@@ -135,7 +147,7 @@ export const getStyleDeclarations = (color: Color) => {
     }
 
     #green:hover {
-      background: ${getLineraGradient({
+      background-image: ${getLineraGradient({
         colorStops: [
           [color.rgb.r, 0, color.rgb.b],
           [color.rgb.r, 255, color.rgb.b],
@@ -145,7 +157,7 @@ export const getStyleDeclarations = (color: Color) => {
     }
 
     #blue:hover {
-      background: ${getLineraGradient({
+      background-image: ${getLineraGradient({
         colorStops: [
           [color.rgb.r, color.rgb.g, 0],
           [color.rgb.r, color.rgb.g, 255],
@@ -155,7 +167,7 @@ export const getStyleDeclarations = (color: Color) => {
     }
 
     #hue:hover {
-      background: ${getLineraGradient({
+      background-image: ${getLineraGradient({
         colorStops: [
           [0, color.hsv.s, color.hsv.v],
           [60, color.hsv.s, color.hsv.v],
@@ -170,7 +182,7 @@ export const getStyleDeclarations = (color: Color) => {
     }
 
     #saturation:hover {
-      background: ${getLineraGradient({
+      background-image: ${getLineraGradient({
         colorStops: [
           [color.hsv.h, 0, color.hsv.v],
           [color.hsv.h, 1, color.hsv.v],
@@ -180,7 +192,7 @@ export const getStyleDeclarations = (color: Color) => {
     }
 
     #value:hover {
-      background: ${getLineraGradient({
+      background-image: ${getLineraGradient({
         colorStops: [
           [color.hsv.h, color.hsv.s, 0],
           [color.hsv.h, color.hsv.s, 1],
@@ -190,7 +202,7 @@ export const getStyleDeclarations = (color: Color) => {
     }
 
     #hueL:hover {
-      background: ${getLineraGradient({
+      background-image: ${getLineraGradient({
         colorStops: [
           [0, color.hsl.s, color.hsl.l],
           [60, color.hsl.s, color.hsl.l],
@@ -205,7 +217,7 @@ export const getStyleDeclarations = (color: Color) => {
     }
 
     #saturationL:hover {
-      background: ${getLineraGradient({
+      background-image: ${getLineraGradient({
         colorStops: [
           [color.hsl.h, 0, color.hsl.l],
           [color.hsl.h, 1, color.hsl.l],
@@ -215,7 +227,7 @@ export const getStyleDeclarations = (color: Color) => {
     }
 
     #lightness:hover {
-      background: ${getLineraGradient({
+      background-image: ${getLineraGradient({
         colorStops: [
           [color.hsl.h, color.hsl.s, 0],
           [color.hsl.h, color.hsl.s, 0.5],
@@ -224,5 +236,19 @@ export const getStyleDeclarations = (color: Color) => {
         colorInterface: c.hsl,
       })};
     }
+
+    #alpha:hover {
+      background-image: ${getLineraGradient({
+        colorStops: [
+          [color.rgba.r, color.rgba.g, color.rgba.b, 0],
+          [color.rgba.r, color.rgba.g, color.rgba.b, 1],
+        ],
+        colorInterface: c.rgba,
+      })}, url(${bg2});
+    }
   `;
 };
+
+/*
+
+*/

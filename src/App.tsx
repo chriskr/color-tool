@@ -219,6 +219,29 @@ const App = () => {
               </ControlRow>
             </ControlsBlock>
           </ControlsColorSpace>
+
+          <ControlsColorSpace>
+            <ColorSpaceTitle></ColorSpaceTitle>
+            <ControlsBlock>
+              <ControlRow>
+                <label>alpha</label>
+                <input
+                  type="range"
+                  id="alpha"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.alpha(color)}
+                />
+                <input
+                  type="number"
+                  id="alphaValue"
+                  min="0"
+                  max="100"
+                  defaultValue={getters.alpha(color)}
+                />
+              </ControlRow>
+            </ControlsBlock>
+          </ControlsColorSpace>
         </ControlsContainer>
       </MainContent>
       <RepoLink href="https://github.com/chriskr/color-tool">

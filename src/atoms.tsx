@@ -1,12 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import Color from 'color-interfaces';
+import Color, { ColorType } from 'color-interfaces';
 import { getStyleDeclarations } from './utils';
 
 import wiking from './wiking.svg';
 
 import dot from './dot.svg';
 import github from './github.svg';
+import bg2 from './bg2.svg';
 
 export const GlobalStyle = createGlobalStyle`
 html,
@@ -88,11 +89,20 @@ export const ControlsColorSpace = styled.div`
   }
   input[type='range'] {
     width: 720px;
-    height: 20px;
+    height: 21px;
     -webkit-appearance: none;
     margin: 6px 0;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: transparent;
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 0,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    background-size: 708px;
+    background-repeat: no-repeat;
+    background-position: 6px 0;
   }
+
   input[type='range']::-webkit-slider-thumb {
     margin: 0;
     -webkit-appearance: none;
@@ -180,9 +190,21 @@ export const ControlRow = styled.div`
 
 export const ExampleColor = styled.div`
   display: flex;
-  width: 140px;
+  width: 150px;
   padding: 18px 36px;
   flex-direction: column;
+  position: relative;
+  white-space: nowrap;
+  &::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-image: url(${bg2});
+  }
 `;
 
 export const RepoLink = styled.a`
@@ -210,10 +232,13 @@ left: 0;
 
 export const DisplayColor: FunctionComponent<{
   color: Color;
-}> = ({ color, children }) => {
-  const isDark = color.getLuminance() < 0.35;
+}> = ({ color }) => {
+  const adjustColor = color
+    .copy()
+    .mixWithColor(new Color([0, 0, 0.95], ColorType.HSL), 1 - color.alpha);
+  const isDark = adjustColor.getLuminance() < 0.35;
   const style = {
-    backgroundColor: color.rgb.toCss(),
+    backgroundColor: color.rgba.toCss(),
     color: isDark ? 'white' : 'black',
   };
   return (
@@ -221,7 +246,7 @@ export const DisplayColor: FunctionComponent<{
       <div>{color.hex.toCss()}</div>
       <div>{color.rgb.toCss()}</div>
       <div>{color.hsl.toCss()}</div>
-      {children}
+      <div>{color.rgba.toCss()}</div>
     </ExampleColor>
   );
 };
