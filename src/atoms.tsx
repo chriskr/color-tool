@@ -30,9 +30,7 @@ body {
 #root {
   height: 100%;
   overflow: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
 }
 
 h1,
@@ -54,6 +52,12 @@ h1 {
 
 export const Wrapper = styled.div`
   padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  box-sizing: border-box;
 `;
 
 export const Header = styled.header`
@@ -70,7 +74,7 @@ export const Header = styled.header`
 export const MainContent = styled.div`
   display: flex;
   justify-content: center;
-  margin: 70px 0;
+  margin: 50px 0;
 `;
 
 export const ControlsContainer = styled.form`
