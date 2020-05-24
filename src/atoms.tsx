@@ -10,23 +10,26 @@ import bg2 from './bg2.svg';
 export const GlobalStyle = createGlobalStyle`
 html,
 body {
-  padding: 0;
-  margin: 0;
-
+  color: hsl(0, 0%, 75%);
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  color: hsl(0, 0%, 75%);
+  margin: 0;
+  padding: 0;
 }
 
 html {
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-image: linear-gradient(0deg, hsl(0, 0%, 10%), hsl(0, 0%, 25%));
 }
 
 body {
+  height: 100%;
+
+}
+
+#root {
+  height: 100%;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,6 +50,10 @@ h1 {
   color: hsl(0, 0%, 35%);
 }
 
+`;
+
+export const Wrapper = styled.div`
+  padding: 50px 0;
 `;
 
 export const Header = styled.header`
@@ -89,7 +96,7 @@ export const ControlsColorSpace = styled.div`
     width: 720px;
     height: 21px;
     -webkit-appearance: none;
-    margin: 6px 0;
+    margin: 6px -6px;
     background-color: transparent;
     background-image: linear-gradient(
       90deg,

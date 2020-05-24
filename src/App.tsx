@@ -3,6 +3,7 @@ import Color from 'color-interfaces';
 import { getters, getOnInput, handleSubmit } from './utils';
 import {
   GlobalStyle,
+  Wrapper,
   Header,
   MainContent,
   ControlsContainer,
@@ -19,7 +20,7 @@ const App = () => {
   const [color, setColor] = useState(new Color([246, 232, 17]));
 
   return (
-    <>
+    <Wrapper>
       <GlobalStyle />
       <Header>
         <h1>color tool</h1>
@@ -247,7 +248,7 @@ const App = () => {
       <RepoLink href="https://github.com/chriskr/color-tool">
         color-tool
       </RepoLink>
-    </>
+    </Wrapper>
   );
 };
 
